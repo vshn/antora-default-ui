@@ -50,5 +50,9 @@
     "typeface-roboto-mono": "0.0.54",
     "vinyl-buffer": "~1.0",
     "vinyl-fs": "~3.0"
+  },
+  "dependencies": {
+    "typeface-ubuntu": "0.0.65",
+    "typeface-ubuntu-mono": "0.0.72"
   }
 }
