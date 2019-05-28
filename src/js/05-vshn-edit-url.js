@@ -36,6 +36,9 @@
   }
 
   find('.vshn-page-edit').forEach(function (item, idx) {
-    item.onclick = vshnEditUrl(item.dataset.url)
+    var path = item.dataset.url
+    item.onclick = function () {
+      vshnEditUrl(path)
+    }
   })
 })()
