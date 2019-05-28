@@ -26,18 +26,21 @@
     window['vshn_documents_index'] = [{
       'name': 'Lunr',
       'text': 'Like Solr, but much smaller, and not as bright.',
+      'href': '/lunr.html',
     }, {
       'name': 'React',
       'text': 'A JavaScript library for building user interfaces.',
+      'href': '/react.html',
     }, {
       'name': 'Lodash',
       'text': 'A modern JavaScript utility library delivering modularity, performance & extras.',
+      'href': '/lodash.html',
     }]
   }
   var lunrIndex = window['lunr'](function () {
-    this.ref('name')
+    this.ref('href')
     this.field('text')
-    this.metadataWhitelist = ['name']
+    this.field('name')
 
     window['vshn_documents_index'].forEach(function (d) {
       this.add(d)
@@ -53,11 +56,20 @@
   function displayResults (results, div) {
     removeAllChildren(div)
     searchArticle.appendChild(searchTitle)
-    results.forEach(function (item, idx) {
+    if (results.length === 0) {
       var searchResult = document.createElement('p')
-      searchResult.innerText = item.ref
+      searchResult.innerText = 'No results found'
       div.appendChild(searchResult)
-    })
+    } else {
+      results.forEach(function (item, idx) {
+        var searchResult = document.createElement('p')
+        var searchLink = document.createElement('a')
+        searchLink.innerText = item.name
+        searchLink.href = item.href
+        searchResult.appendChild(searchLink)
+        div.appendChild(searchResult)
+      })
+    }
   }
 
   find('#search-input').forEach(function (item, idx) {
@@ -67,13 +79,18 @@
         if (!searchArticle.parentNode) {
           main.replaceChild(searchArticle, mainDoc)
         }
-        var results = lunrIndex.search(val)
+        var origin = window['vshn_documents_index']
+        var results = lunrIndex.search(val).map(function (result) {
+          return origin.filter(function (page) {
+            return page.href === result.ref
+          })[0]
+        })
         if (results.length > 0) {
           console.info('Found %s results', results.length)
           displayResults(results, searchArticle)
         } else {
           console.warn('No search results found')
-          displayResults([{ ref: 'No results found' }], searchArticle)
+          displayResults([], searchArticle)
         }
       } else {
         if (!mainDoc.parentNode) {
