@@ -22,22 +22,24 @@
   var main = allMain[0]
   var mainDoc = allDocs[0]
 
-  var documents = [{
-    'name': 'Lunr',
-    'text': 'Like Solr, but much smaller, and not as bright.',
-  }, {
-    'name': 'React',
-    'text': 'A JavaScript library for building user interfaces.',
-  }, {
-    'name': 'Lodash',
-    'text': 'A modern JavaScript utility library delivering modularity, performance & extras.',
-  }]
+  if (!window['vshn_documents_index']) {
+    window['vshn_documents_index'] = [{
+      'name': 'Lunr',
+      'text': 'Like Solr, but much smaller, and not as bright.',
+    }, {
+      'name': 'React',
+      'text': 'A JavaScript library for building user interfaces.',
+    }, {
+      'name': 'Lodash',
+      'text': 'A modern JavaScript utility library delivering modularity, performance & extras.',
+    }]
+  }
   var lunrIndex = window['lunr'](function () {
     this.ref('name')
     this.field('text')
     this.metadataWhitelist = ['name']
 
-    documents.forEach(function (d) {
+    window['vshn_documents_index'].forEach(function (d) {
       this.add(d)
     }, this)
   })
