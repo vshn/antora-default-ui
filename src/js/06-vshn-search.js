@@ -22,30 +22,10 @@
   var main = allMain[0]
   var mainDoc = allDocs[0]
 
-  if (!window['vshn_documents_index']) {
-    window['vshn_documents_index'] = [{
-      'name': 'Lunr',
-      'text': 'Like Solr, but much smaller, and not as bright.',
-      'href': '/lunr.html',
-    }, {
-      'name': 'React',
-      'text': 'A JavaScript library for building user interfaces.',
-      'href': '/react.html',
-    }, {
-      'name': 'Lodash',
-      'text': 'A modern JavaScript utility library delivering modularity, performance & extras.',
-      'href': '/lodash.html',
-    }]
+  if (!window['vshn_lunr_index']) {
+    window['vshn_lunr_index'] = []
   }
-  var lunrIndex = window['lunr'](function () {
-    this.ref('href')
-    this.field('text')
-    this.field('name')
-
-    window['vshn_documents_index'].forEach(function (d) {
-      this.add(d)
-    }, this)
-  })
+  var lunrIndex = window['lunr'].Index.load(window['vshn_lunr_index'])
 
   var searchArticle = document.createElement('article')
   searchArticle.className = 'doc'
@@ -72,6 +52,7 @@
     }
   }
 
+  var origin = window['vshn_lunr_files']
   find('#search-input').forEach(function (item, idx) {
     item.onkeyup = function () {
       var val = item.value
@@ -79,11 +60,8 @@
         if (!searchArticle.parentNode) {
           main.replaceChild(searchArticle, mainDoc)
         }
-        var origin = window['vshn_documents_index']
         var results = lunrIndex.search(val).map(function (result) {
-          return origin.filter(function (page) {
-            return page.href === result.ref
-          })[0]
+          return origin[result.ref]
         })
         if (results.length > 0) {
           console.info('Found %s results', results.length)
