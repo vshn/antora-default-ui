@@ -35,6 +35,7 @@
     return [].slice.call((from || document).querySelectorAll(selector))
   }
 
+  // Add an onclick event handler for the corresponding button on the UI
   find('.vshn-page-edit').forEach(function (item, idx) {
     var path = item.dataset.url
     item.onclick = function () {
