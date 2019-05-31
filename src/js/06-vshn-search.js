@@ -40,28 +40,47 @@
   var searchArticle = document.createElement('article')
   searchArticle.className = 'doc'
   var searchTitle = document.createElement('h1')
-  searchTitle.innerText = 'Search Results'
   searchArticle.appendChild(searchTitle)
+
+  // Get information about the current URL of this page
+  var website = window.location.protocol + '//' + window.location.host
 
   // Builds the list of search results on the node passed as parameter.
   // The results variable is an array of objects with 'name' and 'href' keys.
-  function displayResults (results, node) {
+  function displayResults (results, node, query) {
     removeAllChildren(node)
     searchArticle.appendChild(searchTitle)
+    searchTitle.innerText = 'Search Results for "' + query + '"'
     if (results.length === 0) {
       // If nothing to show:
       var searchResult = document.createElement('p')
-      searchResult.innerText = 'No results found'
+      searchResult.innerText = 'No results found.'
       node.appendChild(searchResult)
     } else {
       // If there are results to show:
       results.forEach(function (item, idx) {
-        var searchResult = document.createElement('p')
+        var searchDiv = document.createElement('div')
+        searchDiv.className = 'paragraph'
+        var searchParagraph = document.createElement('p')
+        searchParagraph.className = 'search-paragraph'
+
+        var searchEntry = document.createElement('a')
+        searchEntry.innerText = item.name
+        searchEntry.href = item.href
+        searchEntry.className = 'search-entry'
+        searchParagraph.appendChild(searchEntry)
+
+        var br = document.createElement('br')
+        searchParagraph.appendChild(br)
+
         var searchLink = document.createElement('a')
-        searchLink.innerText = item.name
+        searchLink.innerText = website + item.href
         searchLink.href = item.href
-        searchResult.appendChild(searchLink)
-        node.appendChild(searchResult)
+        searchLink.className = 'search-link'
+        searchParagraph.appendChild(searchLink)
+
+        searchDiv.appendChild(searchParagraph)
+        node.appendChild(searchDiv)
       })
     }
   }
@@ -73,24 +92,25 @@
   find('#search-input').forEach(function (item, idx) {
     // Add an event to be fired everytime the user presses a key
     item.onkeyup = function () {
-      var val = item.value
-      if (!isEmptyOrBlank(val)) {
+      var query = item.value
+      if (!isEmptyOrBlank(query)) {
+        query = query.trim()
         // Display the search node instead of the current page
         if (!searchArticle.parentNode) {
           main.replaceChild(searchArticle, mainDoc)
         }
         // Search and look for the corresponding files
-        var results = lunrIndex.search(val).map(function (result) {
+        var results = lunrIndex.search(query).map(function (result) {
           return origin[result.ref]
         })
         if (results.length > 0) {
           // Display the results on the page
           console.info('Found %s results', results.length)
-          displayResults(results, searchArticle)
+          displayResults(results, searchArticle, query)
         } else {
           // Nothing found, don't show anything
           console.warn('No search results found')
-          displayResults([], searchArticle)
+          displayResults([], searchArticle, query)
         }
       } else {
         // Display the original node with the current page
