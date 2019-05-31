@@ -1,11 +1,6 @@
 ; (function () {
   'use strict'
 
-  // Finds items in the page using a CSS selector
-  function find (selector, from) {
-    return [].slice.call((from || document).querySelectorAll(selector))
-  }
-
   // Checks whether a string is empty, blank, null or undefined
   function isEmptyOrBlank (str) {
     return (!str || str.length === 0 || !str.trim())
@@ -18,23 +13,100 @@
     }
   }
 
-  var allMain = find('.main')
-  var allDocs = find('.doc')
+  // Creates the DOM structure of a single search result item
+  function createSearchResultsDiv (item, website) {
+    var searchParagraph = document.createElement('p')
+    searchParagraph.className = 'search-paragraph'
+
+    var searchEntry = document.createElement('a')
+    searchEntry.innerText = item.name
+    searchEntry.href = item.href
+    searchEntry.className = 'search-entry'
+    searchParagraph.appendChild(searchEntry)
+
+    var br1 = document.createElement('br')
+    searchParagraph.appendChild(br1)
+
+    var searchLink = document.createElement('a')
+    searchLink.innerText = website + item.href
+    searchLink.href = item.href
+    searchLink.className = 'search-link'
+    searchParagraph.appendChild(searchLink)
+
+    var br2 = document.createElement('br')
+    searchParagraph.appendChild(br2)
+
+    var searchExcerpt = document.createElement('span')
+    searchExcerpt.className = 'search-excerpt'
+    searchExcerpt.innerText = item.excerpt
+    searchParagraph.appendChild(searchExcerpt)
+
+    var searchDiv = document.createElement('div')
+    searchDiv.className = 'paragraph'
+    searchDiv.appendChild(searchParagraph)
+    return searchDiv
+  }
+
+  // Builds the list of search results on the node passed as parameter.
+  // The results variable is an array of objects with 'name' and 'href' keys.
+  function displayResults (results, query) {
+    removeAllChildren(searchArticle)
+    searchArticle.appendChild(searchTitle)
+    searchTitle.innerText = 'Search Results for "' + query + '"'
+    if (results.length === 0) {
+      var searchResult = document.createElement('p')
+      searchResult.innerText = 'No results found.'
+      searchArticle.appendChild(searchResult)
+    } else {
+      results.forEach(function (item, idx) {
+        var searchDiv = createSearchResultsDiv(item, website)
+        searchArticle.appendChild(searchDiv)
+      })
+    }
+  }
+
+  // Performs the actual search and drives the display of results
+  function searchAndDisplay (query) {
+    if (!isEmptyOrBlank(query)) {
+      query = query.trim()
+      // Replace the current page with a "search results" page
+      if (!searchArticle.parentNode) {
+        main.replaceChild(searchArticle, mainDoc)
+      }
+      // Search and look for the corresponding files, but return at most 10 items
+      var results = lunrIndex.search(query).slice(0, 10).map(function (result) {
+        return origin[result.ref]
+      })
+      displayResults(results, query)
+    } else {
+      // Display the original page in lieu of the search results
+      if (!mainDoc.parentNode) {
+        main.replaceChild(mainDoc, searchArticle)
+      }
+    }
+  }
+
+  var main = document.querySelector('.main')
+  var mainDoc = document.querySelector('.doc')
 
   // Just to make sure that there is a place where to show search results
-  if (allMain.length !== 1 || allDocs.length !== 1) {
-    console.error('Not found required elements in page')
+  if (!main || !mainDoc) {
+    console.error('Not found required elements in page with CSS classes "main" and "doc".')
     return
   }
 
-  var main = allMain[0]
-  var mainDoc = allDocs[0]
-
+  // The index is generated and optimized at the moment of build.
   // Populate the index with a default value, just in case.
   if (!window['vshn_lunr_index']) {
     window['vshn_lunr_index'] = {}
   }
   var lunrIndex = window['lunr'].Index.load(window['vshn_lunr_index'])
+  var website = window.location.protocol + '//' + window.location.host
+
+  // This variable contains an object whose keys
+  // are 'href' paths, and the values are objects with 'name'
+  // and 'href' keys.
+  var origin = window['vshn_lunr_files']
 
   // Create a placeholder node to show search results
   var searchArticle = document.createElement('article')
@@ -42,90 +114,21 @@
   var searchTitle = document.createElement('h1')
   searchArticle.appendChild(searchTitle)
 
-  // Get information about the current URL of this page
-  var website = window.location.protocol + '//' + window.location.host
+  // Find a reference to the input box used to enter search terms
+  var searchInput = document.querySelector('#search-input')
 
-  // Builds the list of search results on the node passed as parameter.
-  // The results variable is an array of objects with 'name' and 'href' keys.
-  function displayResults (results, node, query) {
-    removeAllChildren(node)
-    searchArticle.appendChild(searchTitle)
-    searchTitle.innerText = 'Search Results for "' + query + '"'
-    if (results.length === 0) {
-      // If nothing to show:
-      var searchResult = document.createElement('p')
-      searchResult.innerText = 'No results found.'
-      node.appendChild(searchResult)
-    } else {
-      // If there are results to show:
-      results.forEach(function (item, idx) {
-        var searchDiv = document.createElement('div')
-        searchDiv.className = 'paragraph'
-        var searchParagraph = document.createElement('p')
-        searchParagraph.className = 'search-paragraph'
-
-        var searchEntry = document.createElement('a')
-        searchEntry.innerText = item.name
-        searchEntry.href = item.href
-        searchEntry.className = 'search-entry'
-        searchParagraph.appendChild(searchEntry)
-
-        var br1 = document.createElement('br')
-        searchParagraph.appendChild(br1)
-
-        var searchLink = document.createElement('a')
-        searchLink.innerText = website + item.href
-        searchLink.href = item.href
-        searchLink.className = 'search-link'
-        searchParagraph.appendChild(searchLink)
-
-        var br2 = document.createElement('br')
-        searchParagraph.appendChild(br2)
-
-        var searchExcerpt = document.createElement('span')
-        searchExcerpt.className = 'search-excerpt'
-        searchExcerpt.innerText = item.excerpt
-        searchParagraph.appendChild(searchExcerpt)
-
-        searchDiv.appendChild(searchParagraph)
-        node.appendChild(searchDiv)
-      })
-    }
+  // Event to be fired everytime the user presses a key
+  searchInput.onkeyup = function () {
+    searchAndDisplay(searchInput.value)
   }
 
-  // This variable contains an object whose keys
-  // are 'href' paths, and the values are objects with 'name'
-  // and 'href' keys.
-  var origin = window['vshn_lunr_files']
-  find('#search-input').forEach(function (item, idx) {
-    // Add an event to be fired everytime the user presses a key
-    item.onkeyup = function () {
-      var query = item.value
-      if (!isEmptyOrBlank(query)) {
-        query = query.trim()
-        // Display the search node instead of the current page
-        if (!searchArticle.parentNode) {
-          main.replaceChild(searchArticle, mainDoc)
-        }
-        // Search and look for the corresponding files
-        var results = lunrIndex.search(query).map(function (result) {
-          return origin[result.ref]
-        })
-        if (results.length > 0) {
-          // Display the results on the page
-          console.info('Found %s results', results.length)
-          displayResults(results, searchArticle, query)
-        } else {
-          // Nothing found, don't show anything
-          console.warn('No search results found')
-          displayResults([], searchArticle, query)
-        }
-      } else {
-        // Display the original node with the current page
-        if (!mainDoc.parentNode) {
-          main.replaceChild(mainDoc, searchArticle)
-        }
-      }
-    }
-  })
+  // Event to be fired when the input gains focus
+  searchInput.onfocus = function () {
+    searchAndDisplay(searchInput.value)
+  }
+
+  // Focus the search box when the page loads
+  window.onload = function (e) {
+    searchInput.focus()
+  }
 })()
