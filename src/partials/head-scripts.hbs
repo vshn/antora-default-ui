@@ -5,4 +5,12 @@
 {{/with}}
 {{/if}}
 <script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.6/lunr.min.js"></script>
+
+{{!-- 
+The file below contains two variables appended into the `window` object:
+vshn_lunr_files: contains a map of URLs to document titles.
+vshn_lunr_index: contains the actual index used by Lunr.js.
+These two variables are created by the "handbook" project at build
+in file `scripts/lunar_prebuild_index.js`.
+--}}
 <script src="/_/vshn_documents_index.js"></script>
