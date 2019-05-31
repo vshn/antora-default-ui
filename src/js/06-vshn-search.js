@@ -1,8 +1,14 @@
 ; (function () {
   'use strict'
 
+  // Finds items in the page using a CSS selector
   function find (selector, from) {
     return [].slice.call((from || document).querySelectorAll(selector))
+  }
+
+  // Checks whether a string is empty, blank, null or undefined
+  function isEmptyOrBlank (str) {
+    return (!str || str.length === 0 || !str.trim())
   }
 
   // Removes all the children of a node passed as parameter
@@ -68,7 +74,7 @@
     // Add an event to be fired everytime the user presses a key
     item.onkeyup = function () {
       var val = item.value
-      if (val.length > 0) {
+      if (!isEmptyOrBlank(val)) {
         // Display the search node instead of the current page
         if (!searchArticle.parentNode) {
           main.replaceChild(searchArticle, mainDoc)
