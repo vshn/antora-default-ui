@@ -542,7 +542,16 @@ kbd,
   font-weight: 500;
 }
 
+.doc .paragraph .search-paragraph {
+  line-height: normal;
+}
+
 .doc .paragraph .search-paragraph .search-link {
-  font-size: 0.768em;
-  color: gray;
+  font-size: small;
+  color: #006621;
+}
+
+.doc .paragraph .search-paragraph .search-excerpt {
+  font-size: small;
+  color: #545454;
 }

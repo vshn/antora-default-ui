@@ -70,14 +70,22 @@
         searchEntry.className = 'search-entry'
         searchParagraph.appendChild(searchEntry)
 
-        var br = document.createElement('br')
-        searchParagraph.appendChild(br)
+        var br1 = document.createElement('br')
+        searchParagraph.appendChild(br1)
 
         var searchLink = document.createElement('a')
         searchLink.innerText = website + item.href
         searchLink.href = item.href
         searchLink.className = 'search-link'
         searchParagraph.appendChild(searchLink)
+
+        var br2 = document.createElement('br')
+        searchParagraph.appendChild(br2)
+
+        var searchExcerpt = document.createElement('span')
+        searchExcerpt.className = 'search-excerpt'
+        searchExcerpt.innerText = item.excerpt
+        searchParagraph.appendChild(searchExcerpt)
 
         searchDiv.appendChild(searchParagraph)
         node.appendChild(searchDiv)
