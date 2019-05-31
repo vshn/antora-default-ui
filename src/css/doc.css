@@ -542,16 +542,32 @@ kbd,
   font-weight: 500;
 }
 
-.doc .paragraph .search-paragraph {
-  line-height: normal;
+.doc .search-div {
+  border-radius: 15px;
+  border: 1px solid transparent;
+  cursor: default;
 }
 
-.doc .paragraph .search-paragraph .search-link {
+.doc .search-div:hover {
+  border-radius: 15px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.doc .search-div .search-paragraph {
+  line-height: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.doc .search-div .search-paragraph .search-link {
   font-size: small;
   color: #006621;
 }
 
-.doc .paragraph .search-paragraph .search-excerpt {
+.doc .search-div .search-paragraph .search-excerpt {
   font-size: small;
   color: #545454;
 }
