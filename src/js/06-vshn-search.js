@@ -14,6 +14,7 @@
   }
 
   // Creates the DOM structure of a single search result item
+  // The website variable contains the current domain where this code is running.
   function createSearchResultsDiv (item, website) {
     var searchParagraph = document.createElement('p')
     searchParagraph.className = 'search-paragraph'
@@ -50,8 +51,9 @@
     return searchDiv
   }
 
-  // Builds the list of search results on the node passed as parameter.
-  // The results variable is an array of objects with 'name' and 'href' keys.
+  // Builds the HTML structure of the list of search results
+  // The results variable is an array of objects with 'name', 'href' and 'excerpt' keys.
+  // The query variable is a string entered by the user.
   function display (results, query) {
     if (isEmptyOrBlank(query)) {
       // Display the original page in lieu of the search results if not done yet
@@ -62,6 +64,7 @@
     }
     // Rebuild the contents of the "search results" page
     removeAllChildren(searchArticle)
+    var searchTitle = document.createElement('h1')
     searchArticle.appendChild(searchTitle)
     searchTitle.innerText = 'Search Results for "' + query.trim() + '"'
     if (results.length === 0) {
@@ -80,12 +83,12 @@
     }
   }
 
-  // Performs the actual search and drives the display of results
+  // Performs the actual search
   function search (query) {
     if (isEmptyOrBlank(query)) {
       return []
     }
-    // Search and look for the corresponding files, but return at most 10 items
+    // Search with Lunr.js, but return at most 10 items.
     var results = lunrIndex.search(query.trim()).slice(0, 10).map(function (result) {
       return origin[result.ref]
     })
@@ -111,16 +114,17 @@
   var lunrIndex = window['lunr'].Index.load(window['vshn_lunr_index'])
   var website = window.location.protocol + '//' + window.location.host
 
-  // This variable contains an object whose keys
-  // are 'href' paths, and the values are objects with 'name'
-  // and 'href' keys.
+  // This variable contains an object whose keys are 'href' paths,
+  // and the values are objects with 'name', 'excerpt' and 'href' keys.
+  // We need this because the Lunr.js index does _not_ return any
+  // other information than the 'href' when searching; we need to
+  // map that 'href' to information that makes sense to the user,
+  // like contents and excerpts.
   var origin = window['vshn_lunr_files']
 
   // Create a placeholder node to show search results
   var searchArticle = document.createElement('article')
   searchArticle.className = 'doc'
-  var searchTitle = document.createElement('h1')
-  searchArticle.appendChild(searchTitle)
 
   // Event to be fired everytime the user presses a key
   searchInput.onkeyup = function () {
