@@ -31,15 +31,12 @@
     }
   }
 
-  function find (selector, from) {
-    return [].slice.call((from || document).querySelectorAll(selector))
-  }
+  // Reference to the "Edit this Page" button
+  var editButton = document.querySelector('.vshn-page-edit')
 
   // Add an onclick event handler for the corresponding button on the UI
-  find('.vshn-page-edit').forEach(function (item, idx) {
-    var path = item.dataset.url
-    item.onclick = function () {
-      vshnEditUrl(path)
-    }
-  })
+  var path = editButton.dataset.url
+  editButton.onclick = function () {
+    vshnEditUrl(path)
+  }
 })()
