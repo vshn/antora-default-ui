@@ -5,7 +5,7 @@
   {{/if}}
 {{> breadcrumbs}}
 {{> page-versions}}
-  {{!-- {{#if (and page.editUrl (not page.origin.private))}} --}}
-  <div class="edit-this-page"><button class="vshn-page-edit" data-url="{{page.editUrl}}">Edit this Page</button></div>
-  {{!-- {{/if}} --}}
+  {{#if (and page.editUrl (not page.origin.private))}}
+  {{/if}}
+  <div class="edit-this-page"><button class="vshn-page-edit">Edit this Page</button></div>
 </div>
