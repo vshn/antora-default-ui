@@ -8,25 +8,23 @@
   // toolbar.hbs) we "rewrite" the URL passed (which is local to the
   // context used to create the site, usually with "file://" URLs) and we
   // redirect to the actual repository where the pages are stored.
-  function vshnEditUrl () {
-    var originalPath = window.location.pathname
-    // The window.location.pathname property is a string with the following form:
-    // '/handbook/1.0.0/your_first_day.html'
-    // We match and extract the middle section.
-    var re = new RegExp('^/handbook/(.*)/(.*).html$')
+  function vshnEditUrl (rootUrl, originalPath) {
+    // The originalPath variable has a string with the following form:
+    // 'file:///home/user/path/handbook/modules/ROOT/pages/squads.adoc'
+    // We match "*/modules/ROOT/pages/*" and extract the middle section.
+    var re = new RegExp('^(.*)modules/ROOT/pages/(.*)$')
 
     /*
     At this point, "matches" is an array with the following structure:
-    0: "/handbook/1.0.0/your_first_day.html"
-    1: "1.0.0"
-    2: "your_first_day"
+    0: "file:///home/user/path/handbook/modules/ROOT/pages/squads.adoc"
+    1: "file:///home/user/path/handbook/"
+    2: "squads.adoc"
     */
     var matches = originalPath.match(re)
-    console.log(matches)
     if (matches.length > 2) {
       // Create the actual URL that points to the source of this file
-      var newPath = 'https://git.vshn.net/vshn/handbook/tree/develop/modules/ROOT/pages/' + matches[2] + '.adoc'
-      console.log(newPath)
+      var somewhere = matches[0].replace(matches[1], '')
+      var newPath = rootUrl + '/edit/develop/' + somewhere
       window.location = newPath
     } else {
       console.error('Could not redirect the user properly using URL:' + originalPath)
@@ -38,6 +36,24 @@
 
   // Add an onclick event handler for the corresponding button on the UI
   editButton.onclick = function () {
-    vshnEditUrl()
+    if (editButton.dataset.url) {
+      // Antora includes the `editUrl` property only when
+      // reading documentation hosted in BitBucket, Github and GitLab
+      // or when the doc is built locally and from the current branch
+      var url = editButton.dataset.url
+      if (url.startsWith('https://github.com') ||
+        url.startsWith('https://gitlab.com') ||
+        url.startsWith('https://bitbucket.com')) {
+        window.location = editButton.dataset.url
+        return
+      }
+      if (url.startsWith('file://')) {
+        // For the moment this is only used by the handbook
+        var rootUrl = 'https://git.vshn.net/vshn/handbook'
+        vshnEditUrl(rootUrl, url)
+        return
+      }
+      console.warn('Cannot redirect to original URL')
+    }
   }
 })()
