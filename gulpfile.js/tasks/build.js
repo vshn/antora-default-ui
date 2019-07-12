@@ -18,6 +18,7 @@ const postcssUrl = require('postcss-url')
 const postcssVar = require('postcss-custom-properties')
 const uglify = require('gulp-uglify')
 const vfs = require('vinyl-fs')
+const stripDebug = require('gulp-strip-debug')
 
 module.exports = (src, dest, preview) => () => {
   const opts = { base: src, cwd: src }
@@ -46,9 +47,10 @@ module.exports = (src, dest, preview) => () => {
     vfs
       .src('js/+([0-9])-*.js', opts)
       .pipe(uglify())
+      .pipe(stripDebug())
       .pipe(concat('js/site.js')),
     vfs
-      .src('js/vendor/*.js', Object.assign({ read: false }, opts))
+      .src('js/vendor/*.js', Object.assign({ read: false }, opts)).pipe(stripDebug())
       .pipe(
         // see https://gulpjs.org/recipes/browserify-multiple-destination.html
         map((file, enc, next) => {

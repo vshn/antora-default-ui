@@ -84,20 +84,30 @@
   }
 
   // Performs the actual search
-  function search (query) {
-    if (isEmptyOrBlank(query)) {
-      return []
+  function search (query, callback) {
+    var XMLHttpRequest = window['XMLHttpRequest']
+    var xmlhttp = new XMLHttpRequest()
+
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+        if (xmlhttp.status === 200) {
+          console.log(xmlhttp.responseText)
+          callback(JSON.parse(xmlhttp.responseText))
+        } else {
+          console.log('Status received: ' + xmlhttp.status)
+        }
+      }
     }
-    // Search with Lunr.js, but return at most 10 items.
-    var results = lunrIndex.search(query.trim()).slice(0, 10).map(function (result) {
-      return origin[result.ref]
-    })
-    return results
+
+    var url = '/search?q=' + encodeURIComponent(query)
+    xmlhttp.open('GET', url, true)
+    xmlhttp.send()
   }
 
   var main = document.querySelector('.main')
   var mainDoc = document.querySelector('.doc')
   var searchInput = document.querySelector('#search-input')
+  var website = window.location.protocol + '//' + window.location.host
 
   // Just to make sure that there is a place where to show search results
   if (!main || !mainDoc || !searchInput) {
@@ -106,22 +116,6 @@
     return
   }
 
-  // The index is generated and optimized at the moment of build.
-  // Populate the index with a default value, just in case.
-  if (!window['vshn_lunr_index']) {
-    window['vshn_lunr_index'] = {}
-  }
-  var lunrIndex = window['lunr'].Index.load(window['vshn_lunr_index'])
-  var website = window.location.protocol + '//' + window.location.host
-
-  // This variable contains an object whose keys are 'href' paths,
-  // and the values are objects with 'name', 'excerpt' and 'href' keys.
-  // We need this because the Lunr.js index does _not_ return any
-  // other information than the 'href' when searching; we need to
-  // map that 'href' to information that makes sense to the user,
-  // like contents and excerpts.
-  var origin = window['vshn_lunr_files']
-
   // Create a placeholder node to show search results
   var searchArticle = document.createElement('article')
   searchArticle.className = 'doc'
@@ -129,15 +123,17 @@
   // Event to be fired everytime the user presses a key
   searchInput.onkeyup = function () {
     var query = searchInput.value
-    var results = search(query)
-    display(results, query)
+    search(query, function (results) {
+      display(results, query)
+    })
   }
 
   // Event to be fired when the input gains focus
   searchInput.onfocus = function () {
     var query = searchInput.value
-    var results = search(query)
-    display(results, query)
+    search(query, function (results) {
+      display(results, query)
+    })
   }
 
   // Focus the search box when the page loads
