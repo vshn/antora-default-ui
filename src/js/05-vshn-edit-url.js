@@ -12,7 +12,7 @@
     // The originalPath variable has a string with the following form:
     // 'file:///home/user/path/handbook/modules/ROOT/pages/squads.adoc'
     // We match "*/modules/ROOT/pages/*" and extract the middle section.
-    var re = new RegExp('^(.*)modules/ROOT/pages/(.*)$')
+    var re = new RegExp('^(.*)src/modules/ROOT/pages/(.*)$')
 
     /*
     At this point, "matches" is an array with the following structure:
