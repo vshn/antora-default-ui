@@ -44,7 +44,7 @@
     "prettier-eslint": "8.8.2",
     "require-directory": "2.1.1",
     "require-from-string": "2.0.2",
-    "stylelint": "9.9.0",
+    "stylelint": "11.1.1",
     "stylelint-config-standard": "18.2.0",
     "through2": "3.0.1",
     "typeface-ubuntu": "0.0.65",
