@@ -30,7 +30,7 @@
     "gulp-imagemin": "5.0.3",
     "gulp-postcss": "8.0.0",
     "gulp-strip-debug": "3.0.0",
-    "gulp-stylelint": "8.0.0",
+    "gulp-stylelint": "11.0.0",
     "gulp-uglify": "3.0.2",
     "gulp-vinyl-zip": "2.1.2",
     "handlebars": "4.4.3",
