@@ -56,7 +56,7 @@ module.exports = (src, dest, preview) => () => {
         map((file, enc, next) => {
           file.contents = browserify(file.relative, { basedir: src, detectGlobals: false }).bundle()
           next(null, file)
-        })
+        }),
       )
       .pipe(buffer())
       .pipe(uglify()),
@@ -70,11 +70,11 @@ module.exports = (src, dest, preview) => () => {
           imagemin.jpegtran(),
           imagemin.optipng(),
           imagemin.svgo({ plugins: [{ removeViewBox: false }] }),
-        ])
+        ]),
       ),
     vfs.src('helpers/*.js', opts),
     vfs.src('external/*.js', opts),
     vfs.src('layouts/*.hbs', opts),
-    vfs.src('partials/*.hbs', opts)
+    vfs.src('partials/*.hbs', opts),
   ).pipe(vfs.dest(dest))
 }
