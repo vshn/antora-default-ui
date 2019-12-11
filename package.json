@@ -33,7 +33,7 @@
     "gulp-stylelint": "11.0.0",
     "gulp-uglify": "3.0.2",
     "gulp-vinyl-zip": "2.1.2",
-    "handlebars": "4.4.3",
+    "handlebars": "4.5.3",
     "highlight.js": "9.17.0",
     "js-yaml": "3.13.1",
     "merge-stream": "2.0.0",
