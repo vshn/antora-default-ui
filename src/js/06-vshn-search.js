@@ -85,7 +85,7 @@
 
   // Performs the actual search
   function search (query, callback) {
-    var XMLHttpRequest = window['XMLHttpRequest']
+    var XMLHttpRequest = window.XMLHttpRequest
     var xmlhttp = new XMLHttpRequest()
 
     xmlhttp.onreadystatechange = function () {
