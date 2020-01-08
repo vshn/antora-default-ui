@@ -101,6 +101,7 @@
 
 .meta-info-table td:nth-child(1) {
   background-color: #f4f5f7;
+  font-weight: bold;
 }
 
 .status-macro {
