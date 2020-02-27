@@ -27,7 +27,7 @@
     "gulp-concat": "2.6.1",
     "gulp-connect": "5.7.0",
     "gulp-eslint": "6.0.0",
-    "gulp-imagemin": "7.0.0",
+    "gulp-imagemin": "7.1.0",
     "gulp-postcss": "8.0.0",
     "gulp-strip-debug": "3.0.0",
     "gulp-stylelint": "11.0.0",
