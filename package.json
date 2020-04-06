@@ -53,6 +53,6 @@
     "vinyl-fs": "3.0.3"
   },
   "dependencies": {
-    "mozjpeg": "^6.0.1"
+    "mozjpeg": "6.0.1"
   }
 }
