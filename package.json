@@ -14,6 +14,7 @@
     "asciidoctor.js": "1.5.9",
     "autoprefixer": "9.8.5",
     "browserify": "16.5.1",
+    "core-js": "^3.6.5",
     "cssnano": "4.1.10",
     "eslint": "7.4.0",
     "eslint-config-standard": "14.1.1",
