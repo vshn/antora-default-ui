@@ -46,7 +46,7 @@
     "require-from-string": "2.0.2",
     "stylelint": "13.6.1",
     "stylelint-config-standard": "20.0.0",
-    "through2": "3.0.2",
+    "through2": "4.0.2",
     "typeface-ubuntu": "0.0.65",
     "typeface-ubuntu-mono": "0.0.72",
     "vinyl-buffer": "1.0.1",
