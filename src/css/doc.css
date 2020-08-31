@@ -645,3 +645,34 @@
 .doc td.tableblock {
   word-break: break-word; /* overflow-wrap for table cells; gives space higher precedence than hyphen opportunity */
 }
+
+/* Search results */
+.doc .search-div {
+  border-radius: 15px;
+  border: 1px solid transparent;
+  cursor: default;
+}
+
+.doc .search-div:hover {
+  border-radius: 15px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.doc .search-div .search-paragraph {
+  line-height: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.doc .search-div .search-paragraph .search-link {
+  font-size: small;
+  color: #006621;
+}
+
+.doc .search-div .search-paragraph .search-excerpt {
+  font-size: small;
+  color: #545454;
+}
