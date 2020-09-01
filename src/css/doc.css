@@ -249,6 +249,7 @@
 .doc .admonitionblock td.content {
   padding: 1rem 1rem 0.75rem;
   background: var(--admonition-background);
+  border-radius: 0.45rem;
   width: 100%;
 }
 
@@ -259,11 +260,12 @@
   font-size: calc(15 / var(--rem-base) * 1rem);
   padding: 0 0.5rem;
   height: 1.25rem;
-  line-height: 1;
+  line-height: 1.4;
   font-weight: var(--admonition-label-font-weight);
   text-transform: uppercase;
   border-radius: 0.45rem;
   transform: translate(-0.5rem, -50%);
+  color: white;
 }
 
 .doc .admonitionblock.caution .icon {
@@ -291,14 +293,24 @@
   color: var(--warning-on-color);
 }
 
-.doc .admonitionblock .icon i {
-  display: inline-flex;
-  align-items: center;
-  height: 100%;
+.doc .admonitionblock .icon .icon-note::before {
+  content: "\f05a";
 }
 
-.doc .admonitionblock .icon i::after {
-  content: attr(title);
+.doc .admonitionblock .icon .icon-tip::before {
+  content: "\f0eb";
+}
+
+.doc .admonitionblock .icon .icon-warning::before {
+  content: "\f071";
+}
+
+.doc .admonitionblock .icon .icon-caution::before {
+  content: "\f06d";
+}
+
+.doc .admonitionblock .icon .icon-important::before {
+  content: "\f06a";
 }
 
 .doc .imageblock {
