@@ -1,5 +1,7 @@
 = Hardware and Software Requirements
+
 Author Name
+
 :idprefix:
 :idseparator: -
 :!example-caption:
@@ -16,6 +18,20 @@ Integer diam enim, dignissim eget eros et, ultricies mattis odio.
 Vestibulum consectetur nec urna a luctus.
 Quisque pharetra tristique arcu fringilla dapibus.
 Curabitur ut massa aliquam, cursus enim et, accumsan lectus.
+
+== MathJax
+
+This is the solution of a famous equation
+
+\begin{array}{c} {x = \frac{{ - b \pm \sqrt {b^2 - 4ac} }}{{2a}}} & when & {ax^2 + bx + c = 0} \end{array}
+
+== Icons
+
+Big heart: icon:heart[size=2x]
+
+Tags: icon:tags[role="blue"]
+
+Bolt: icon:bolt[fw]
 
 == Cu solet
 

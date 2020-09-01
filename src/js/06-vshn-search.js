@@ -98,7 +98,6 @@
           callback(JSON.parse(xmlhttp.responseText))
         } else {
           console.log('Status received: ' + xmlhttp.status)
-          callback(JSON.parse('[{"name":"Advanced Config Reference","href":"/k8up/0.1.5/advanced-config.html","excerpt":" The operator has two ways for configuration:  Per namespace backups. Optimal for shared clusters Global settings with namespaced…"},{"name":"K8up","href":"/k8up/0.1.5/index.html","excerpt":" K8up is a backup operator that will handle PVC and app backups on a k8s/OpenShift cluster. Just create a…"},{"name":"Getting Started Tutorial","href":"/k8up/0.1.5/getting-started.html","excerpt":" This tutorial provides a quick introduction to K8up, how it works and how to use it.  Prerequisites This…"},{"name":"Object Specifications Reference","href":"/k8up/0.1.5/object-specifications.html","excerpt":" The K8up operator includes various CRDs which get added to the cluster. Here We’ll explain them in more detail.…"},{"name":"How to Restore a Backup","href":"/k8up/0.1.5/restore.html","excerpt":" It is possible to tell the operator to perform restores either to a PVC or an S3 bucket. For…"}]'))
         }
       }
     }
@@ -134,15 +133,10 @@
   }
 
   // Event to be fired when the input gains focus
-  // searchInput.onfocus = function () {
-  //   var query = searchInput.value
-  //   search(query, function (results) {
-  //     display(results, query)
-  //   })
-  // }
-
-  // Focus the search box when the page loads
-  // window.onload = function (e) {
-  //   searchInput.focus()
-  // }
+  searchInput.onfocus = function () {
+    var query = searchInput.value
+    search(query, function (results) {
+      display(results, query)
+    })
+  }
 })()
