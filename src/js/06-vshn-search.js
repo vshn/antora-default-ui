@@ -59,7 +59,7 @@
       // Display the original page in lieu of the search results if not done yet
       if (!mainArticle.parentNode) {
         contentDiv.replaceChild(mainArticle, searchArticle)
-        toc.style.visibility = 'visible'
+        if (toc) toc.style.visibility = 'visible'
       }
       return
     }
@@ -81,7 +81,7 @@
     }
     // Replace the current page with a "search results" page if not done yet
     if (!searchArticle.parentNode) {
-      toc.style.visibility = 'hidden'
+      if (toc) toc.style.visibility = 'hidden'
       contentDiv.replaceChild(searchArticle, mainArticle)
     }
   }
@@ -114,7 +114,7 @@
   var website = window.location.protocol + '//' + window.location.host
 
   // Just to make sure that there is a place where to show search results
-  if (!contentDiv || !mainArticle || !searchInput || !toc) {
+  if (!contentDiv || !mainArticle || !searchInput) {
     console.error('Not found required elements in page with CSS classes "main" and "doc",')
     console.error('or a text field with ID "search-input".')
     return
