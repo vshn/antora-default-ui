@@ -42,7 +42,7 @@
   /* navbar */
   --navbar-background: var(--color-vshn-blue);
   --navbar-font-color: var(--color-white);
-  --navbar_hover-background: var(--color-black);
+  --navbar_hover-background: var(--color-vshn-dark-blue);
   --navbar-button-background: var(--color-white);
   --navbar-button-border-color: var(--panel-border-color);
   --navbar-button-font-color: var(--body-font-color);
