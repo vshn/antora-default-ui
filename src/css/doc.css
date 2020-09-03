@@ -688,3 +688,8 @@
   font-size: small;
   color: #545454;
 }
+
+/* Used in the legal documents by docgen to mark SignRequest fields */
+.srfield {
+  display: none;
+}
