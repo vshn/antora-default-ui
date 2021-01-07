@@ -44,8 +44,11 @@
 
     var searchDiv = document.createElement('div')
     searchDiv.className = 'search-div paragraph'
-    searchDiv.onclick = function () {
-      window.location.href = item.href
+    searchDiv.onclick = function (e) {
+      if (e.target !== searchEntry) {
+        // VINT-2256: don't trigger event if right-clicking on a search result
+        window.location.href = item.href
+      }
     }
     searchDiv.appendChild(searchParagraph)
     return searchDiv
