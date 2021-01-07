@@ -127,19 +127,46 @@
   var searchArticle = document.createElement('article')
   searchArticle.className = 'doc'
 
-  // Event to be fired everytime the user presses a key
-  searchInput.onkeyup = function () {
+  // Timeout to hold 500 milliseconds before searching
+  var timeout = null
+
+  // Clears timeout and searches immediately
+  function searchNow () {
+    if (timeout) clearTimeout(timeout)
     var query = searchInput.value
     search(query, function (results) {
       display(results, query)
     })
   }
 
-  // Event to be fired when the input gains focus
-  searchInput.onfocus = function () {
-    var query = searchInput.value
-    search(query, function (results) {
-      display(results, query)
-    })
+  // Clears the previous timeout if any, and sets a new one
+  // to search in 500 milliseconds
+  function triggerDelayedSearch () {
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      searchNow()
+    }, 500)
   }
+
+  // Event to be fired everytime the user presses a key
+  searchInput.addEventListener('keyup', function () {
+    triggerDelayedSearch()
+  })
+
+  // Event to be fired when the input gains focus
+  searchInput.addEventListener('focus', function () {
+    triggerDelayedSearch()
+  })
+
+  // VINT-2255: Event to be fired by a search page exposed through OpenSearch
+  searchInput.addEventListener('search', function () {
+    searchNow()
+  })
+
+  // If the user presses enter, search directly
+  searchInput.addEventListener('keydown', function (event) {
+    if (event.keyCode === 13) {
+      searchNow()
+    }
+  })
 })()
