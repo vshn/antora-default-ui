@@ -4,7 +4,7 @@
       <div class="navbar-item">
         <div class="vshn_logo"></div>
         <a href="{{or site.url (or siteRootUrl siteRootPath)}}">{{site.title}}
-         {{#unless (eq page.componentVersion.displayVersion "master")}} – v{{page.componentVersion.displayVersion}}{{/unless}}</a>
+         {{#unless (eq page.componentVersion.displayVersion "master")}}{{#unless (eq page.layout '404')}} – v{{page.componentVersion.displayVersion}}{{/unless}}{{/unless}}</a>
       </div>
       <button class="navbar-burger" data-target="topbar-nav">
         <span></span>
