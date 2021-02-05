@@ -56,7 +56,7 @@
     "vinyl-fs": "~3.0"
   },
   "dependencies": {
-    "typeface-ubuntu": "0.0.65",
+    "typeface-montserrat": "^1.1.13",
     "typeface-ubuntu-mono": "0.0.72"
   }
 }
