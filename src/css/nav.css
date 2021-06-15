@@ -253,6 +253,11 @@ html.is-clipped--nav {
   display: inherit;
 }
 
+.nav-panel-explore .component .version a:hover {
+  text-decoration: none;
+  color: var(--vshn-capri);
+}
+
 .nav-panel-explore .component .is-current a {
   border-color: currentColor;
   opacity: 0.9;

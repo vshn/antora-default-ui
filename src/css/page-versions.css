@@ -40,6 +40,11 @@
   display: none;
 }
 
+.page-versions .version-menu a:hover {
+  text-decoration: none;
+  color: var(--vshn-capri);
+}
+
 .page-versions .version {
   display: block;
   padding-top: 0.5rem;

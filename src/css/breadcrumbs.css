@@ -36,3 +36,8 @@ a + .breadcrumbs {
 .breadcrumbs li:last-of-type::after {
   content: none;
 }
+
+.breadcrumbs a:hover  {
+  text-decoration: none;
+  color: var(--vshn-capri);
+}
