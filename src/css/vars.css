@@ -46,14 +46,14 @@
   /* navbar */
   --navbar-background: var(--vshn-cultured);
   --navbar-font-color: var(--vshn-rich-black);
-  --navbar_hover-background: var(--vshn-cultured);
+  --navbar_hover-background: var(--vshn-capri);
   --navbar-button-background: var(--color-white);
   --navbar-button-border-color: var(--panel-border-color);
   --navbar-button-font-color: var(--body-font-color);
   --navbar-menu-border-color: var(--panel-border-color);
   --navbar-menu-background: var(--vshn-cultured);
   --navbar-menu-font-color: var(--vshn-rich-black);
-  --navbar-menu_hover-background: var(--vshn-cultured);
+  --navbar-menu_hover-background: var(--vshn-capri);
   /* nav */
   --nav-background: var(--panel-background);
   --nav-border-color: var(--color-gray-10);

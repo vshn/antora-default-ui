@@ -88,6 +88,7 @@ body {
 .navbar-item,
 .navbar-link {
   color: var(--navbar-menu-font-color);
+  font-weight: normal;
   display: block;
   line-height: var(--doc-line-height);
   padding: 0.5rem 1rem;

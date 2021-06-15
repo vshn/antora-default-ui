@@ -144,6 +144,11 @@ html.is-clipped--nav {
   transform: rotate(90deg);
 }
 
+.nav-link:hover  {
+  text-decoration: none;
+  color: var(--vshn-capri);
+}
+
 .is-current-page > .nav-link,
 .is-current-page > .nav-text {
   font-weight: var(--body-font-weight-bold);
