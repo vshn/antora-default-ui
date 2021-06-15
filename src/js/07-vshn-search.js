@@ -113,6 +113,7 @@
   var contentDiv = document.querySelector('.content')
   var mainArticle = document.querySelector('.doc')
   var searchInput = document.querySelector('#search-input')
+  var searchButton = document.querySelector('.search-button')
   var toc = document.querySelector('.sidebar')
   var website = window.location.protocol + '//' + window.location.host
 
@@ -168,5 +169,10 @@
     if (event.keyCode === 13) {
       searchNow()
     }
+  })
+
+  // If the user clicks on the search icon, search directly
+  searchButton.addEventListener('click', function (event) {
+    searchNow()
   })
 })()

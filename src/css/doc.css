@@ -838,6 +838,40 @@ h1.page + aside.toc.embedded {
   word-wrap: normal;
 }
 
+/* Search field */
+
+.search-field {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid var(--panel-border-color);
+  border-right: none;
+  border-radius: 10px;
+  padding: 0 0 0 15px;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+  background: white;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
+}
+
+.search-button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--panel-border-color);
+  border-left: none;
+  background: white;
+  text-align: center;
+  color: var(--panel-border-color);
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
 /* Search results */
 
 .doc .search-div {

@@ -4,7 +4,8 @@
       <div class="navbar-item">
         <div class="vshn_logo"></div>
         <a href="{{or site.url (or siteRootUrl siteRootPath)}}">{{site.title}}
-         {{#unless (eq page.componentVersion.displayVersion "master")}} – v{{page.componentVersion.displayVersion}}{{/unless}}</a>
+          {{#unless (eq page.componentVersion.displayVersion "master")}} –
+          v{{page.componentVersion.displayVersion}}{{/unless}}</a>
       </div>
       <button class="navbar-burger" data-target="topbar-nav">
         <span></span>
@@ -29,7 +30,12 @@
           </div>
         </div>
         <div class="navbar-item">
-            <input id="search-input" type="text" placeholder="Search">
+          <div class="search-field">
+            <input id="search-input" class="search-input" type="search" placeholder="Search">
+            <button type="submit" class="search-button">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
