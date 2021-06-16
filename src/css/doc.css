@@ -112,16 +112,6 @@ h1.page + aside.toc.embedded {
   margin: 0;
 }
 
-.doc a {
-  color: var(--link-font-color);
-  font-weight: var(--body-font-weight-bold);
-}
-
-.doc a:hover {
-  color: var(--link_hover-font-color);
-  text-decoration: none;
-}
-
 .doc a.bare {
   hyphens: none;
 }

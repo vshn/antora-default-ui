@@ -25,7 +25,9 @@
   --vshn-silver-sand: #B9BFC6;
   --vshn-ghost-white: #E9EBF2;
   --vshn-cultured: #F6F7F9;
-  --vshn-link-color: var(--vshn-capri);
+  --vshn-logo-blue: #4081cb;
+  --vshn-link-color: var(--vshn-logo-blue);
+  --vshn-link-hover-color: var(--vshn-capri);
 
   /* fonts */
   --rem-base: 18; /* used to compute rem value from desired pixel value (e.g., calc(18 / var(--rem-base) * 1rem) = 18px) */
