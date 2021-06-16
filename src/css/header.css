@@ -271,5 +271,6 @@ body {
 
   .navbar-dropdown a.navbar-item:hover {
     background: var(--navbar-menu_hover-background);
+    color: var(--vshn-rich-black);
   }
 }
