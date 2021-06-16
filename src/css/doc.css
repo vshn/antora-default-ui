@@ -896,7 +896,7 @@ h1.page + aside.toc.embedded {
 
 .doc .search-div .search-paragraph .search-link {
   font-size: small;
-  color: #006621;
+  font-weight: normal;
 }
 
 .doc .search-div .search-paragraph .search-excerpt {
