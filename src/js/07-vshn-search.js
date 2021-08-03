@@ -112,6 +112,7 @@
 
   var contentDiv = document.querySelector('.content')
   var mainArticle = document.querySelector('.doc')
+  var mainTitle = ''
   var searchInput = document.querySelector('#search-input')
   var searchButton = document.querySelector('.search-button')
   var toc = document.querySelector('.sidebar')
@@ -135,9 +136,36 @@
   function searchNow () {
     if (timeout) clearTimeout(timeout)
     var query = searchInput.value
-    search(query, function (results) {
-      display(results, query)
-    })
+    if (query.length > 0) {
+      search(query, function (results) {
+        display(results, query)
+        updateURL(results, query)
+      })
+    }
+  }
+
+  // Updates URL field when user searches
+  function updateURL (results, query) {
+    var state = {
+      query: query,
+      results: results
+    }
+    window.history.pushState(state, 'Search', searchPagePath + '?q=' + encodeURIComponent(query))
+  }
+
+  // Handles the back button to go back
+  // and forth across search results
+  window.onpopstate = function (e) {
+    if (e.state) {
+      searchInput.value = e.state.query
+      display(e.state.results, e.state.query)
+      document.title = 'Search'
+    }
+    else {
+      searchInput.value = ''
+      contentDiv.replaceChild(mainArticle, searchArticle)
+      document.title = mainTitle
+    }
   }
 
   // Clears the previous timeout if any, and sets a new one
