@@ -1,5 +1,6 @@
     {{#with page.canonicalUrl}}
     <link rel="canonical" href="{{{this}}}">
+    <meta property="og:url" content="{{{this}}}">
     {{/with}}
     {{#unless (eq page.attributes.pagination undefined)}}
     {{#with page.previous}}
@@ -11,10 +12,17 @@
     {{/unless}}
     {{#with page.description}}
     <meta name="description" content="{{this}}">
+    <meta property="og:description" itemprop="description" content="{{this}}">
+    <meta name="twitter:description" content="{{this}}">
     {{/with}}
     {{#with page.keywords}}
     <meta name="keywords" content="{{this}}">
     {{/with}}
     {{#with (or antoraVersion site.antoraVersion)}}
     <meta name="generator" content="Antora {{this}}">
+    {{/with}}
+    {{#with page.image}}
+    <meta property="og:image" content="{{this}}">
+    <link itemprop="image" href="{{this}}">
+    <meta name="twitter:image" content="{{this}}">
     {{/with}}
