@@ -47,5 +47,4 @@ jobs:
         artifactContentType: "application/zip"
         body: |
           ${{ steps.Changelog.outputs.changelog }}
-        name: Version ${{ github.ref }}
         token: ${{ secrets.GITHUB_TOKEN }}
