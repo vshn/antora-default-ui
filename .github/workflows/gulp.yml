@@ -33,10 +33,11 @@ jobs:
         path: build/ui-bundle.zip
 
     - name: Changelog
-      uses: scottbrenner/generate-changelog-action@master
+      uses: scottbrenner/generate-changelog-action@v1
       id: Changelog
       with:
         allow-unknown: true
+        to-tag: ${{ github.ref }}
 
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/') # create release only if this is a tag
