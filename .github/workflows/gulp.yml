@@ -1,4 +1,4 @@
-name: NodeJS with Gulp
+name: gulp in docker
 
 on:
   push:
@@ -9,20 +9,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-    
+  
     steps:
     - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+    - name: Docker Run Action
+      uses: addnab/docker-run-action@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        image: node:10.14.2-stretch
+        run: "npm install && node_modules/.bin/gulp bundle"
 
-    - name: Build
-      run: |
-        npm install
-        gulp bundle
+    - name: 'Upload Artifact'
+    uses: actions/upload-artifact@v2
+    with:
+      name: ui-bundle.zip
+      path: build/ui-bundle.zip
