@@ -1,1 +1,4 @@
     <title>{{{detag (or page.title defaultPageTitle)}}}{{#with site.title}} :: {{this}}{{/with}}</title>
+    {{! og:title    The title of your article without any branding such as your site name.}}
+    <meta property="og:title" itemprop="name" content="{{{detag (or page.title defaultPageTitle)}}}">
+    <meta name="twitter:title" content="{{{detag (or page.title defaultPageTitle)}}}">
