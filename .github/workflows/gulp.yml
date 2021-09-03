@@ -18,7 +18,11 @@ jobs:
       uses: addnab/docker-run-action@v3
       with:
         image: node:10.14.2-stretch
-        run: "npm install && node_modules/.bin/gulp bundle"
+        options: -v ${{ github.workspace }}:/workspace
+        run: |
+          cd /workspace
+          npm install
+          node_modules/.bin/gulp bundle
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
