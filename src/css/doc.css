@@ -840,7 +840,6 @@ h1.page + aside.toc.embedded {
   width: 100%;
   border: 1px solid var(--panel-border-color);
   border-right: none;
-  border-radius: 10px;
   padding: 0 0 0 15px;
   border-radius: 20px 0 0 20px;
   outline: none;

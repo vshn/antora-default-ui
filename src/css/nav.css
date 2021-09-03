@@ -144,7 +144,7 @@ html.is-clipped--nav {
   transform: rotate(90deg);
 }
 
-.nav-link:hover  {
+.nav-link:hover {
   text-decoration: none;
   color: var(--vshn-capri);
 }

@@ -37,7 +37,7 @@ a + .breadcrumbs {
   content: none;
 }
 
-.breadcrumbs a:hover  {
+.breadcrumbs a:hover {
   text-decoration: none;
   color: var(--vshn-capri);
 }

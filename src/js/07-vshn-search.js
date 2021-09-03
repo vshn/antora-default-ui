@@ -148,8 +148,10 @@
   function updateURL (results, query) {
     var state = {
       query: query,
-      results: results
+      results: results,
     }
+    // searchPagePath is set at runtime in head-scripts.hbs
+    // eslint-disable-next-line no-undef
     window.history.pushState(state, 'Search', searchPagePath + '?q=' + encodeURIComponent(query))
   }
 
@@ -160,8 +162,7 @@
       searchInput.value = e.state.query
       display(e.state.results, e.state.query)
       document.title = 'Search'
-    }
-    else {
+    } else {
       searchInput.value = ''
       contentDiv.replaceChild(mainArticle, searchArticle)
       document.title = mainTitle
