@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
   
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout 
+      uses: actions/checkout@v2
 
     - name: Docker Run Action
       uses: addnab/docker-run-action@v3
@@ -20,7 +21,7 @@ jobs:
         run: "npm install && node_modules/.bin/gulp bundle"
 
     - name: 'Upload Artifact'
-    uses: actions/upload-artifact@v2
-    with:
-      name: ui-bundle.zip
-      path: build/ui-bundle.zip
+      uses: actions/upload-artifact@v2
+      with:
+        name: ui-bundle.zip
+        path: build/ui-bundle.zip
