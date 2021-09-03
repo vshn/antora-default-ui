@@ -1,8 +1,9 @@
-name: gulp in docker
+name: build & release
 
 on:
   push:
     branches: [ '*' ]
+    tags: [ '*' ]
   pull_request:
     branches: [ master ]
 
@@ -24,8 +25,27 @@ jobs:
           npm install
           node_modules/.bin/gulp bundle
 
+    # the artifact is available for all builds (branches, pull requests)
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v2
       with:
-        name: ui-bundle.zip
+        name: ui-bundle
         path: build/ui-bundle.zip
+
+    - name: Changelog
+      if: startsWith(github.ref, 'refs/tags/') # create release only if this is a tag
+      uses: scottbrenner/generate-changelog-action@master
+      id: Changelog
+
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/') # create release only if this is a tag
+      uses: actions/create-release@latest
+      with:
+        artifacts: "build/ui-bundle.zip"
+        tag_name: ${{ github.ref }}
+        release_name: Version ${{ github.ref }}
+        body: |
+          ${{ steps.Changelog.outputs.changelog }}
+        draft: false
+        prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
