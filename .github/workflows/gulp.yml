@@ -1,0 +1,31 @@
+name: gulp in docker
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  
+    steps:
+    - name: Checkout 
+      uses: actions/checkout@v2
+
+    - name: Docker Run Action
+      uses: addnab/docker-run-action@v3
+      with:
+        image: node:10.14.2-stretch
+        options: -v ${{ github.workspace }}:/workspace
+        run: |
+          cd /workspace
+          npm install
+          node_modules/.bin/gulp bundle
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: ui-bundle.zip
+        path: build/ui-bundle.zip
