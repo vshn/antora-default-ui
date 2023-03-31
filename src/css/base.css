@@ -42,6 +42,10 @@ a:active {
   color: var(--vshn-link-hover-color);
 }
 
+a[target=_blank]::after {
+  content: "\00a0🔗";
+}
+
 code,
 kbd,
 pre {
