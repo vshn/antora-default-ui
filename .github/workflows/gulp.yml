@@ -23,7 +23,7 @@ jobs:
         run: |
           cd /workspace
           npm install
-          node_modules/.bin/gulp bundle
+          npx gulp clean; npx gulp build; npx gulp bundle:pack
 
     # the artifact is available for all builds (branches, pull requests)
     - name: 'Upload Artifact'
